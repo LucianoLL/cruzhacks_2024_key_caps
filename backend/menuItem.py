@@ -5,10 +5,11 @@ class menuItemObj:
     objRestr: a list of dietary restrictions
     """
 
-    def __init__(self, objName, objAmount, objRestr):
+    def __init__(self, objName, objAmount, objRestr, objMacro):
         self.itemName = objName
         self.calAmount = objAmount
         self.dietRestr = objRestr
+        self.macroNutr = objMacro
 
     def __str__(self):
         returStr = (
@@ -44,3 +45,10 @@ class menuItemObj:
 
     def getDietRestr(self):
         return self.dietRestr
+
+    """
+    Gets the macro nutrients of each menu item
+    """
+
+    def getMacros(self):
+        return self.macroNutr
