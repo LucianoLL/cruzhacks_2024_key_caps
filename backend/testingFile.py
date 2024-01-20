@@ -12,3 +12,9 @@ print("\nPrinting plateObj")
 plate1 = plateObj([item1])
 print(plate1)
 print("Getting Plate Calories: ", plate1.getPlateCalories())
+
+
+def tmpData():
+    returData = list()
+
+    return returData
