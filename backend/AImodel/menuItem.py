@@ -21,6 +21,10 @@ class menuItemObj:
             + "\tDietary Restrictions: "
             + str(self.dietRestr)
             + "\n"
+            + "\tMacro Nutrients:"
+            + "\n\t"
+            + str(self.macroNutr)
+            + "\n"
         )
         return returStr
 

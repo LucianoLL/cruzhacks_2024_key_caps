@@ -12,9 +12,9 @@ class plateObj:
 
             for macro, amount in curr.getMacros().items():
                 if macro not in list(self.dictMacro.keys()):
-                    self.dictMacro[macro] = amount
+                    self.dictMacro[macro] = round(amount, 2)
                 else:
-                    self.dictMacro[macro] += amount
+                    self.dictMacro[macro] += round(amount, 2)
 
     def __str__(self):
         returStr = (
@@ -22,6 +22,11 @@ class plateObj:
             + str(self.listItems)
             + "\n\tAmount of Calories: "
             + str(self.calAmount)
+            + "\n"
+            + "\tMacro Nutrients:"
+            + "\n\t"
+            + str(self.dictMacro)
+            + "\n"
         )
 
         return returStr
@@ -70,11 +75,11 @@ class plateObj:
         self.listItems.append(newItem.getName())
         self.calAmount += newItem.getCalories()
 
-        for item, amount in newItem.getMacros():
-            if item not in list(self.dictMacro().keys()):
-                self.dictMacro[item] = amount
+        for item, amount in newItem.getMacros().items():
+            if item not in self.dictMacro.keys():
+                self.dictMacro[item] = round(amount, 2)
             else:
-                self.dictMacro[item] += amount
+                self.dictMacro[item] += round(amount, 2)
 
     """
     To remove and update any menuitem
@@ -87,5 +92,5 @@ class plateObj:
         self.listItems.remove(chosenItem.getName())
         self.calAmount -= chosenItem.getCalories()
 
-        for item, amount in chosenItem.getMacros():
-            self.dictMacro[item] -= amount
+        for item, amount in chosenItem.getMacros().items():
+            self.dictMacro[item] -= round(amount, 2)
