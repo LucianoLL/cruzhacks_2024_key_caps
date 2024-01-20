@@ -18,3 +18,19 @@ class plateObj:
         )
 
         return returStr
+
+    ###################### Access Functions ##############################
+
+    """
+    Get the plate's combined calorie count
+    """
+
+    def getPlateCalories(self):
+        return self.calAmount
+
+    """
+    Get a list of each menu item on the plate
+    """
+
+    def getPlateItems(self):
+        return self.listObjs

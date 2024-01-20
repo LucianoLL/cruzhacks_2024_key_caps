@@ -23,11 +23,24 @@ class menuItemObj:
         )
         return returStr
 
+    ###################### Access Functions ##############################
+    """
+    Get the name of the individual menu item
+    """
+
     def getName(self):
         return self.itemName
 
+    """
+    Get the menu item's calories
+    """
+
     def getCalories(self):
         return self.calAmount
+
+    """
+    Get a list of each menu item's dietary restrictions
+    """
 
     def getDietRestr(self):
         return self.dietRestr
