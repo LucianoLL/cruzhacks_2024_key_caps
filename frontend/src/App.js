@@ -1,25 +1,33 @@
+import React from 'react';
+import { ReactDOM } from 'react-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import {ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
 import logo from './logo.svg';
 import './App.css';
+import HomePage from './Pages/HomePage';
+import Navbar from './Components/Navbar';
 
-function App() {
+export default function App() {
+  
+  const theme = createTheme({
+    typography:{
+      fontFamily: 'Poppins'
+    }
+
+  })
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes> 
+          <Route index element = {<HomePage/>}/>
+        </Routes>
+    </BrowserRouter>
+    </ThemeProvider>
+    </>
+
   );
 }
 
-export default App;
