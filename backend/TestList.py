@@ -22,4 +22,16 @@ item8 = menuItemObj("Beef Frank",
 
 items = [item1, item2, item3, item4, item5, item6, item7, item8] 
 
-for item in items
+for item in items:
+    print(item)
+
+plate1 = plateObj([item2, item6])
+plate2 = plateObj([item1, item5])
+plate3 = plateObj([item7, item8])
+plate4 = plateObj({item1, item2, item3})
+plate5 = plateObj([item8, item2, item5])
+plate6 = plateObj(items)
+
+plates = [plate1,plate2,plate3,plate4,plate5,plate6]
+for plate in plates:
+    print(plate)
