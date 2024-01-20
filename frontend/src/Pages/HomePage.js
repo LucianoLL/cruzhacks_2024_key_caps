@@ -3,28 +3,54 @@ import React, {useEffect, useState, componentDidMount, Component, useMemo} from 
 import App from '../App'
 import Navbar from '../Components/Navbar';
 import { Grid, Paper, TextField, Typography } from '@mui/material';
+import {Checkbox} from '@mui/material';
+import {FormControlLabel} from '@mui/material';
+import {FormGroup} from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
-
+import withStyles from '@mui/material';
 
 
 
 export default function HomePage() {
     
+    
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+
+    }
+
     return(
         <>
-            <form>
-                <Grid container className="pt-[10rem] pl-[20rem]" spacing={5} columnSpacing={10}>
+            <Navbar/>
+            <form onSubmit={handleSubmit}>
+                <Grid container className="pt-[7rem] pl-[39rem]" spacing={5} columnSpacing={10}>
                     <Grid item>
-                        <Paper>
                             <Typography>
                                 Calories:
                             </Typography>
-                            <TextField id="outlined-basic"/>
-                            <Typography>
+                            <TextField id="outlined-basic" className="bg-white rounded-lg"/>
+                            <Typography className=" pt-9">
                                 Dietary Restrictions:
                             </Typography>
-                            <TextField id="outlined-basic"/>
-                        </Paper>
+                            <TextField id="outlined-basic" className="bg-white rounded-lg"/>
+                            <Typography className=' pt-9'>
+                                Select Dining Halls:
+                            </Typography>
+                            <FormGroup>
+                                <FormControlLabel control={<Checkbox />} label="Crown/Merill"/>
+                                <FormControlLabel control={<Checkbox />} label="Nine/Ten" />
+                                <FormControlLabel control={<Checkbox className="bg-white rounded-lg"/>} label="Porter/Kresge" />
+                                <FormControlLabel control={<Checkbox className="bg-white rounded-lg"/>} label="Cowell/Stevenson" />
+                            </FormGroup>
+                            <div className="pl-[3rem] pt-9">
+                            <Typography>
+                                <button className="bg-yellow-500 rounded w-20 text-white">
+                                    Post
+                                </button>
+                            </Typography>
+                        </div>
                     </Grid>
                 </Grid>
             </form>

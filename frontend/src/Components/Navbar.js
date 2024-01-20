@@ -12,8 +12,10 @@ export default function Navbar(){
         <>
         <div>
         <AppBar position="static">
-            <Toolbar className="bg-black" variant="dense">
-                
+            <Toolbar className="bg-yellow-500" variant="dense">
+                <Typography className=" text-blue-700">
+                    PlaceHolder Name
+                </Typography>
             </Toolbar>
         </AppBar>
         </div>
