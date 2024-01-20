@@ -22,3 +22,12 @@ class menuItemObj:
             + "\n"
         )
         return returStr
+
+    def getName(self):
+        return self.itemName
+
+    def getCalories(self):
+        return self.calAmount
+
+    def getDietRestr(self):
+        return self.dietRestr
