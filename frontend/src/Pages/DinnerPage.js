@@ -32,16 +32,15 @@ import nutrislug from '../Components/Images/nutrislug-icon.png';
 import { GridOn } from '@mui/icons-material';
 
 
-export default function BreakfastPage(){
+export default function DinnerPage(){
 
-    return(
-        <>
+    <>
             <Grid container className="pt-[5rem] pl-[39rem]" spacing={5} columnSpacing={5}>
                     <Grid item xs={20}>
                     <div className='pl-2'>
                         <img className=" w-40 h-36 pl-6" src={nutrislug} alt='nutrislug-icon'/>
                         <Typography className='pl-12 italic'>
-                            Breakfast
+                            Dinner
                         </Typography>
                     </div>
                     </Grid>
@@ -86,6 +85,4 @@ export default function BreakfastPage(){
 
         
         </>
-
-    );
 }

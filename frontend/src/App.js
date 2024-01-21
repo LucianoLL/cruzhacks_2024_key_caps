@@ -6,6 +6,9 @@ import { createTheme } from '@mui/material';
 import logo from './logo.svg';
 import './App.css';
 import HomePage from './Pages/HomePage';
+import BreakfastPage from './Pages/BreakfastPage';
+import DinnerPage from './Pages/DinnerPage';
+import LunchPage from './Pages/LunchPage';
 import Navbar from './Components/Navbar';
 
 export default function App() {
@@ -24,6 +27,10 @@ export default function App() {
       <BrowserRouter>
         <Routes> 
           <Route index element = {<HomePage/>}/>
+          <Route path='/breakfast' element = {<BreakfastPage/>}/>
+          <Route path='/dinner' element = {<DinnerPage/>}/>
+          <Route path ='/lunch' element={<LunchPage/>}/>
+
         </Routes>
     </BrowserRouter>
     </ThemeProvider>

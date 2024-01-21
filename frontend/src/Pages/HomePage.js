@@ -1,9 +1,7 @@
 import {BrowserRouter as Router, Routes, Route, BrowserRouter, useParams, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState, componentDidMount, Component, useMemo} from 'react';
 import App from '../App'
-import Navbar from '../Components/Navbar';
 import { Grid, Paper, Radio, TextField, Typography } from '@mui/material';
-import {Checkbox} from '@mui/material';
 import {FormControlLabel} from '@mui/material';
 import {FormGroup} from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
@@ -34,7 +32,7 @@ import nutrislug from '../Components/Images/nutrislug-icon.png';
 export default function HomePage() {
     
     const [calories, setCalories] = useState('');
-    const [diet, setDiet] = useState('');
+    const [diet, setDiet] = useState([]);
     const [dhB, setDHB] = useState('');
     const [dhL, setDHL] = useState('');
     const [dhD, setDHD] = useState('');
