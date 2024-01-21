@@ -1,31 +1,17 @@
-import menuItem
-
-
 class plateObj:
-    def __init__(self, objItems):
-        self.menuObjs = objItems
-        self.listItems = [tmp.getName() for tmp in objItems]
-        self.dictMacro = {}
-        self.calAmount = 0
-        for curr in objItems:
-            self.calAmount += curr.getCalories()
-
-            for macro, amount in curr.getMacros().items():
-                if macro not in list(self.dictMacro.keys()):
-                    self.dictMacro[macro] = round(amount, 2)
-                else:
-                    self.dictMacro[macro] += round(amount, 2)
+    def __init__(self):
+        self.menuObjs = dict()
+        self.macroObjs = dict()
+        self.calObj = 0
 
     def __str__(self):
+        # return "Word"
         returStr = (
-            "Menut Items: "
-            + str(self.listItems)
-            + "\n\tAmount of Calories: "
-            + str(self.calAmount)
-            + "\n"
-            + "\tMacro Nutrients:"
-            + "\n\t"
-            + str(self.dictMacro)
+            str(self.menuObjs.keys())
+            + "\n\tMacros: "
+            + str(self.macroObjs.items())
+            + "\n\tCalories: "
+            + str(self.calObj)
             + "\n"
         )
 
@@ -33,29 +19,19 @@ class plateObj:
 
     ###################### Access Functions ##############################
 
-    # """
-    # Adds new menu items to the two declared lists
-    # """
-
-    # def addToLists(self, newItem):
-    #     self.menuObjs.append(newItem)
-    #     self.listItems.append(newItem.getName())
-
-    #     return
-
     """
     Get the plate's combined calorie count
     """
 
     def getPlateCalories(self):
-        return self.calAmount
+        return self.calObj
 
     """
     Get a list of each menu item on the plate
     """
 
     def getPlateItems(self):
-        return self.listItems
+        return list(self.menuObjs.keys())
 
     """
     Gets a dictionary of the combined total macros in the serving
@@ -71,26 +47,24 @@ class plateObj:
     """
 
     def addMenuItem(self, newItem):
-        self.menuObjs.append(newItem)
-        self.listItems.append(newItem.getName())
-        self.calAmount += newItem.getCalories()
+        self.menuObjs[newItem[0]] = newItem[1]
+        self.calObj += newItem[1]["calories"]
 
-        for item, amount in newItem.getMacros().items():
-            if item not in self.dictMacro.keys():
-                self.dictMacro[item] = round(amount, 2)
+        for macroKey, macroVal in newItem[1]["macros"].items():
+            if macroKey not in self.macroObjs.keys():
+                self.macroObjs[macroKey] = round(macroVal, 2)
             else:
-                self.dictMacro[item] += round(amount, 2)
+                self.macroObjs[macroKey] += round(macroVal, 2)
+
+        # print(self.menuObjs, "\n", self.macroObjs, "\n", self.calObj, "\n")
 
     """
     To remove and update any menuitem
     """
 
     def removeMenuItem(self, chosenItem):
-        for curr in self.menuObjs:
-            if curr.getName() == chosenItem.getName():
-                self.menuObjs.remove(curr)
-        self.listItems.remove(chosenItem.getName())
-        self.calAmount -= chosenItem.getCalories()
-
-        for item, amount in chosenItem.getMacros().items():
-            self.dictMacro[item] -= round(amount, 2)
+        for curr in self.menuObjs.keys():
+            if curr == chosenItem:
+                self.calObj -= self.menuObjs["calories"]
+                self.macroObjs[curr] -= round(self.macroObjs[curr], 2)
+                self.menuObjs.pop(curr)
