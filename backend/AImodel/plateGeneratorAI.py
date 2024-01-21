@@ -157,9 +157,9 @@ def inputFcn():
         print(diningTime, "Plat Options")
         print(
             "High Protein: ",
-            plateGenerator(timeMenu, userVar_03, "HP"),
+            plateGenerator(timeMenu, userVar_03, "HP")[1],
             "\nLow Carb: ",
-            plateGenerator(timeMenu, userVar_03, "LC"),
+            plateGenerator(timeMenu, userVar_03, "LC")[1],
             "\nLow Fat: ",
-            plateGenerator(timeMenu, userVar_03, "LF"),
+            plateGenerator(timeMenu, userVar_03, "LF")[1],
         )
