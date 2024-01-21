@@ -55,25 +55,6 @@ def selectFoodRand(currPlate, currMenu):
     return
 
 
-def calcNutriVal(currPlate, nutriCat):
-    nutriVal = 0
-    plateMacros = currPlate.getPlateMacros()
-
-    if nutriCat == "HP":
-        otherVal = 0
-        restPop = 0
-        for tmpKey, tmpVal in plateMacros.items():
-            if tmpKey != "Protein":
-                otherVal += tmpVal
-                restPop += 1
-                nutriVal += 1 / tmpVal
-
-        if plateMacros["Protein"] >= (otherVal / restPop):
-            nutriVal += plateMacros["Protein"]
-
-    return nutriVal
-
-
 """
 HP = High Portein 35% more emphasis
     4 Calories per Gram
@@ -85,29 +66,66 @@ LF = Low Fat, 35% less emphasis
 """
 
 
+def calcNutriVal(currPlate, nutriCat):
+    nutriVal = 0
+    plateMacros = currPlate.getPlateMacros()
+
+    if nutriCat == "HP":
+        otherVal = 0
+        restPop = 0
+        for tmpKey, tmpVal in plateMacros.items():
+            if (tmpKey != "Protein") and (tmpVal > 0):
+                otherVal += tmpVal
+                restPop += 1
+                nutriVal += 1 / tmpVal
+
+        if plateMacros["Protein"] >= (otherVal / restPop):
+            nutriVal += plateMacros["Protein"]
+
+    if nutriCat == "LC":
+        otherVal = 0
+        restPop = 0
+        for tmpKey, tmpVal in plateMacros.items():
+            if (tmpKey != "Tot. Carb") and (tmpVal > 0):
+                otherVal += tmpVal
+                restPop += 1
+                nutriVal += 1 / tmpVal
+
+        if plateMacros["Tot. Carb"] >= (otherVal / restPop):
+            nutriVal -= plateMacros["Tot. Carb"]
+
+    if nutriCat == "LF":
+        otherVal = 0
+        restPop = 0
+        for tmpKey, tmpVal in plateMacros.items():
+            if (tmpKey != "Total Fat") and (tmpVal > 0):
+                otherVal += tmpVal
+                restPop += 1
+                nutriVal += 1 / tmpVal
+
+        if plateMacros["Total Fat"] >= (otherVal / restPop):
+            nutriVal -= plateMacros["Total Fat"]
+    return nutriVal
+
+
 # def plateGenerator(newPlate, currentMenu, desiredCals, nutriCat):
 def plateGenerator(currentMenu, desiredCals, nutriCat):
     allPlates = list()
-    for currItem, currAssets in currentMenu.items():
+    # menuLen = len(list(currentMenu.keys()))
+    # print(menuLen)
+    plateCombos = list(itertools.combinations(currentMenu, 2))
+    for currCombo in plateCombos:
         newPlate = plateObj()
-        nutriValue = 0
-        newPlate.addMenuItem((currItem, currAssets))
-        currCals = newPlate.getPlateCalories()
+        for currItem in currCombo:
+            newPlate.addMenuItem((currItem, currentMenu[currItem]))
 
-        while currCals <= (desiredCals + desiredCals * 0.25):
-            for menuItem, menuAssets in currentMenu.items():
-                if menuItem not in newPlate.getPlateItems():
-                    newPlate.addMenuItem((menuItem, menuAssets))
-                    print(newPlate)
-                    # Weighing High Protein
-                    nutriValue += calcNutriVal(newPlate, nutriCat)
-                    currCals += newPlate.getPlateCalories()
-
-                # if currCals > (desiredCals + desiredCals * 0.25):
-                #     break
-
-        # print(nutriValue, newPlate)
-        allPlates.append((nutriValue, newPlate))
+        if (
+            (desiredCals - desiredCals * 25)
+            <= newPlate.getPlateCalories()
+            <= (desiredCals + desiredCals * 25)
+        ):
+            nutriVal = calcNutriVal(newPlate, nutriCat)
+            allPlates.append((nutriVal, newPlate))
 
     return max(allPlates, key=lambda x: x[0])
 
@@ -135,9 +153,15 @@ for currTime in data[userVar_01].keys():
 # Still a work on progress, this is probably where the AI model will live
 # PS, the model is not yet implemented
 tmpPlates = list()
-# for diningTime, timeMenu in personalMenu.items():
-#     print(diningTime, "Plat Options")
-#     bestPlate = plateGenerator(timeMenu, userVar_03, "HP")
-#     print("The best: ", bestPlate[1])
-bestPlate = plateGenerator(personalMenu["Lunch"], userVar_03, "HP")
-print(bestPlate[1])
+for diningTime, timeMenu in personalMenu.items():
+    print(diningTime, "Plat Options")
+    allDayMenu = (
+        plateGenerator(timeMenu, userVar_03, "HP"),
+        plateGenerator(timeMenu, userVar_03, "LC"),
+        plateGenerator(timeMenu, userVar_03, "LF"),
+    )
+    for item in allDayMenu:
+        print(item[1])
+    # print("The best: ", bestPlate[1])
+# bestPlate = plateGenerator(personalMenu["Lunch"], userVar_03, "HP")
+# print(bestPlate[1])
