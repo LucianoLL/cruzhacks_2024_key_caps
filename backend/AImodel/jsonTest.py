@@ -1,10 +1,11 @@
 import json
 import pyhop
 import random
+import itertools
 from foodPlate import plateObj
 from menuItem import menuItemObj
 
-inputFile = "food_items12.json"
+inputFile = "food.json"
 with open(inputFile) as f:
     data = json.load(f)
 
@@ -54,6 +55,63 @@ def selectFoodRand(currPlate, currMenu):
     return
 
 
+def calcNutriVal(currPlate, nutriCat):
+    nutriVal = 0
+    plateMacros = currPlate.getPlateMacros()
+
+    if nutriCat == "HP":
+        otherVal = 0
+        restPop = 0
+        for tmpKey, tmpVal in plateMacros.items():
+            if tmpKey != "Protein":
+                otherVal += tmpVal
+                restPop += 1
+                nutriVal += 1 / tmpVal
+
+        if plateMacros["Protein"] >= (otherVal / restPop):
+            nutriVal += plateMacros["Protein"]
+
+    return nutriVal
+
+
+"""
+HP = High Portein 35% more emphasis
+    4 Calories per Gram
+LC = Low Carbs and Sugars, 45% less emphasis
+    4 Calories per Gram in Carbs
+    4 Calories per Gram in Sugars
+LF = Low Fat, 35% less emphasis
+    9 Calories per Gram
+"""
+
+
+# def plateGenerator(newPlate, currentMenu, desiredCals, nutriCat):
+def plateGenerator(currentMenu, desiredCals, nutriCat):
+    allPlates = list()
+    for currItem, currAssets in currentMenu.items():
+        newPlate = plateObj()
+        nutriValue = 0
+        newPlate.addMenuItem((currItem, currAssets))
+        currCals = newPlate.getPlateCalories()
+
+        while currCals <= (desiredCals + desiredCals * 0.25):
+            for menuItem, menuAssets in currentMenu.items():
+                if menuItem not in newPlate.getPlateItems():
+                    newPlate.addMenuItem((menuItem, menuAssets))
+                    print(newPlate)
+                    # Weighing High Protein
+                    nutriValue += calcNutriVal(newPlate, nutriCat)
+                    currCals += newPlate.getPlateCalories()
+
+                # if currCals > (desiredCals + desiredCals * 0.25):
+                #     break
+
+        # print(nutriValue, newPlate)
+        allPlates.append((nutriValue, newPlate))
+
+    return max(allPlates, key=lambda x: x[0])
+
+
 #################### Main User Client Code ####################
 
 userVar_01 = input("Type 20, 40, 25, 30, or 5 : ")
@@ -77,11 +135,9 @@ for currTime in data[userVar_01].keys():
 # Still a work on progress, this is probably where the AI model will live
 # PS, the model is not yet implemented
 tmpPlates = list()
-for diningTime, timeMenu in personalMenu.items():
-    print(diningTime, "Plat Options")
-    for menuItem in timeMenu.items():
-        newPlate = plateObj()
-        selectFoodRand(newPlate, timeMenu)
-        newPlate.addMenuItem(menuItem)
-        print(newPlate)
-        tmpPlates.append(newPlate)
+# for diningTime, timeMenu in personalMenu.items():
+#     print(diningTime, "Plat Options")
+#     bestPlate = plateGenerator(timeMenu, userVar_03, "HP")
+#     print("The best: ", bestPlate[1])
+bestPlate = plateGenerator(personalMenu["Lunch"], userVar_03, "HP")
+print(bestPlate[1])

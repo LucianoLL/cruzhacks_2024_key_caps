@@ -38,7 +38,7 @@ class plateObj:
     """
 
     def getPlateMacros(self):
-        return self.dictMacro
+        return self.macroObjs
 
     ###################### Modification Functions ########################
 
