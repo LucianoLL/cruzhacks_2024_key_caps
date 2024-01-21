@@ -2,8 +2,7 @@ import json
 import pyhop
 import random
 import itertools
-from foodPlate import plateObj
-from menuItem import menuItemObj
+from .foodPlate import plateObj
 
 inputFile = "food.json"
 with open(inputFile) as f:
@@ -11,7 +10,6 @@ with open(inputFile) as f:
 
 """
 Is to filter out all menu items that is checked off as an allergens 
-
 diningHall: a number in string fromat representing each individual dining hall on campus 
 userAller: a set of the user's selected allergens
 mealTime: a string representing either Breakfast, Lunch, or Dinner
@@ -132,36 +130,36 @@ def plateGenerator(currentMenu, desiredCals, nutriCat):
 
 #################### Main User Client Code ####################
 
-userVar_01 = input("Type 20, 40, 25, 30, or 5 : ")
-userSet = set()
-print("Type in your allergens, type 'STOP' to stop typing allergens\n")
-while True:
-    userVar_02 = input("Type your Allergen: ")
-    if userVar_02 == "STOP" or userVar_02 == "stop":
-        break
-    else:
-        userSet.add(userVar_02)
-userVar_03 = int(input("Type desired calories: "))
 
-# print(userSet)
+def inputFcn():
+    userVar_01 = input("Type 20, 40, 25, 30, or 5 : ")
+    userSet = set()
+    print("Type in your allergens, type 'STOP' to stop typing allergens")
+    while True:
+        userVar_02 = input("Type your Allergen: ")
+        if userVar_02 == "STOP" or userVar_02 == "stop":
+            break
+        else:
+            userSet.add(userVar_02)
+    userVar_03 = int(input("Type desired calories: "))
 
-personalMenu = dict()
-for currTime in data[userVar_01].keys():
-    personalMenu[currTime] = filterMenuItems(userVar_01, userSet, currTime)
+    # print(userSet)
 
-# Creating a list of plates that are within range of the desired caloires
-# Still a work on progress, this is probably where the AI model will live
-# PS, the model is not yet implemented
-tmpPlates = list()
-for diningTime, timeMenu in personalMenu.items():
-    print(diningTime, "Plat Options")
-    allDayMenu = (
-        plateGenerator(timeMenu, userVar_03, "HP"),
-        plateGenerator(timeMenu, userVar_03, "LC"),
-        plateGenerator(timeMenu, userVar_03, "LF"),
-    )
-    for item in allDayMenu:
-        print(item[1])
-    # print("The best: ", bestPlate[1])
-# bestPlate = plateGenerator(personalMenu["Lunch"], userVar_03, "HP")
-# print(bestPlate[1])
+    personalMenu = dict()
+    for currTime in data[userVar_01].keys():
+        personalMenu[currTime] = filterMenuItems(userVar_01, userSet, currTime)
+
+    # Creating a list of plates that are within range of the desired caloires
+    # Still a work on progress, this is probably where the AI model will live
+    # PS, the model is not yet implemented
+    tmpPlates = list()
+    for diningTime, timeMenu in personalMenu.items():
+        print(diningTime, "Plat Options")
+        print(
+            "High Protein: ",
+            plateGenerator(timeMenu, userVar_03, "HP"),
+            "\nLow Carb: ",
+            plateGenerator(timeMenu, userVar_03, "LC"),
+            "\nLow Fat: ",
+            plateGenerator(timeMenu, userVar_03, "LF"),
+        )
