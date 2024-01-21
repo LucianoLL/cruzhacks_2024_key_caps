@@ -14,7 +14,7 @@ export default function Navbar(){
         <AppBar position="static">
             <Toolbar className="bg-yellow-500" variant="dense">
                 <Typography className=" text-blue-600">
-                    PlaceHolder Name
+                    NutriSlug
                 </Typography>
             </Toolbar>
         </AppBar>
