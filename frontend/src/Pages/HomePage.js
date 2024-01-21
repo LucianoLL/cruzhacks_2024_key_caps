@@ -13,7 +13,20 @@ import Icon from '@mui/material';
 import makeStyles from '@mui/material';
 import PeanutIcon from '../Components/Icons/PeanutIcon';
 import SesameIcon from '../Components/Icons/SesameIcon';
+import PorkIcon from '../Components/Icons/PorkIcon';
+import Fish from '../Components/Icons/Fish';
+import AlcoholIcon  from '../Components/Icons/AlcoholIcon';
+import EggIcon from '../Components/Icons/EggIcon';
+import GlutenIcon from '../Components/Icons/GlutenIcon';
+import HalalIcon from '../Components/Icons/HalalIcon';
+import MilkIcon from '../Components/Icons/MilkIcon';
+import SoyIcon from '../Components/Icons/SoyIcon';
+import TreeNutIcon from '../Components/Icons/TreeNutIcon';
+import VeganIcon from '../Components/Icons/VeganIcon';
+import VegetarianIcon from '../Components/Icons/VegetarianIcon';
+import BeefIcon from '../Components/Icons/BeefIcon';
 import {Fab} from '@mui/material';
+import ShellfishIcon from '../Components/Icons/ShellfishIcon';
 
 export default function HomePage() {
     
@@ -34,22 +47,69 @@ export default function HomePage() {
                 
                 
             <form onSubmit={handleSubmit}>
-                <Grid container className="pt-[7rem] pl-[39rem]" spacing={5} columnSpacing={10}>
-                    <Grid item>
+                <Grid container className="pt-[5rem] pl-[39rem]" spacing={5} columnSpacing={10}>
+                    <Grid item xs={20}>
                             <Typography>
                                 Calories:
                             </Typography>
                             <TextField id="outlined-basic" className="bg-white rounded-lg"/>
-                            <Typography className=" pt-9">
+                    </Grid>
+                    <Grid item xs={10}>
+                            <Typography className=" pt-3">
                                 Dietary Restrictions:
                             </Typography>
                             <Fab color="primary" aria-label="add">
                                 <PeanutIcon/>
                             </Fab>
-                
-                            
-                            
-                            <Typography className=' pt-9'>
+                            <Fab color="primary" aria-label="add">
+                                <SesameIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <HalalIcon/>
+                            </Fab>
+                            <br/>
+                            <Fab color="primary" aria-label="add">
+                                <MilkIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <PorkIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <SoyIcon/>
+                            </Fab>
+                            <br/>
+                            <Fab color="primary" aria-label="add">
+                                <TreeNutIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <AlcoholIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <GlutenIcon/>
+                            </Fab>
+                            <br/>
+                            <Fab color="primary" aria-label="add">
+                                <ShellfishIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <VeganIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <VegetarianIcon/>
+                            </Fab>
+                            <br/>
+                            <Fab color="primary" aria-label="add">
+                                <Fish/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <BeefIcon/>
+                            </Fab>
+                            <Fab color="primary" aria-label="add">
+                                <EggIcon/>
+                            </Fab>
+                    </Grid>
+                    <Grid item>                
+                            <Typography className=' pt-3'>
                                 Select Dining Halls:
                             </Typography>
                             <FormGroup>
@@ -57,18 +117,20 @@ export default function HomePage() {
                                 <FormControlLabel control={<Checkbox sx={{color: "white"}}/>} label="Nine/Ten" />
                                 <FormControlLabel control={<Checkbox sx={{color: "white"}}/>} label="Porter/Kresge" />
                                 <FormControlLabel control={<Checkbox sx={{color: "white"}}/>} label="Oaks/RCC" />
-
                                 <FormControlLabel control={<Checkbox sx={{color: "white"}}/>} label="Cowell/Stevenson" />
                             </FormGroup>
-                            <div className="pl-[3rem] pt-9">
+                    </Grid>
+                    <Grid item xs={10}>
+                            <div className="pl-[3rem]">
                             <Typography>
                                 <button className="bg-yellow-500 rounded w-20 text-white">
-                                    Post
+                                    Find
                                 </button>
                             </Typography>
                         </div>
                     </Grid>
-                </Grid>
+                    </Grid>
+                
             </form>
 
         </>
